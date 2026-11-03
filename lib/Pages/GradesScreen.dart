@@ -47,7 +47,7 @@ class _GradesScreenState extends State<GradesScreen> {
             return const Center(
               child: Text(
                 "Brak ocen",
-                style: TextStyle(fontSize: 16, color: Colors.grey),
+                style: TextStyle(fontSize: 16),
               ),
             );
           }
@@ -86,9 +86,20 @@ class _GradesScreenState extends State<GradesScreen> {
 
               final cardColor = isCurrentSemester
                   ? Colors.lightGreenAccent.shade400
-                  : Colors.grey.shade300;
+                  : (Theme.of(context).brightness == Brightness.dark
+                  ? Colors.grey.shade800
+                  : Colors.grey.shade300);
 
 
+              final textColor = isCurrentSemester
+                  ? Colors.black87
+                  : (Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black87);
+
+              final subtitleColor = isCurrentSemester
+                  ? Colors.black54
+                  : (Theme.of(context).brightness == Brightness.dark ? Colors.white70 : Colors.black54);
+
+              // Получаем данные оценки
               final part = (sub['parts'] as List).isNotEmpty ? sub['parts'][0] : {};
               final finalGrade = part['finalGrade'] ?? '-';
               final partName = part['partName'] ?? '';
@@ -104,30 +115,48 @@ class _GradesScreenState extends State<GradesScreen> {
                       Text(
                         sub['name'] ?? '',
                         textAlign: TextAlign.center,
-                        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: textColor,
+                        ),
                       ),
                       const SizedBox(height: 4),
                       Text(
                         "Semestr ${sub['semestr']}",
-                        style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: Colors.black54),
+                        style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w600,
+                          color: subtitleColor,
+                        ),
                       ),
                       const SizedBox(height: 4),
                       Text(
                         sub['teacher'] ?? '',
                         textAlign: TextAlign.center,
-                        style: const TextStyle(fontSize: 14),
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: textColor,
+                        ),
                       ),
                       const SizedBox(height: 4),
                       Text(
                         "Ocena: $finalGrade ($partName)",
                         textAlign: TextAlign.center,
-                        style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black87),
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                          color: textColor,
+                        ),
                       ),
                       const SizedBox(height: 2),
                       Text(
                         sub['examType'] ?? '',
                         textAlign: TextAlign.center,
-                        style: const TextStyle(fontSize: 14, color: Colors.black87),
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: subtitleColor,
+                        ),
                       ),
                     ],
                   ),

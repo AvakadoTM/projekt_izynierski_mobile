@@ -61,7 +61,7 @@ class _FinancesScreenState extends State<FinancesScreen> {
                 child: const Text(
                   "Numer konta",
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold,color: Colors.black),
                 ),
               ),
               Padding(
@@ -81,7 +81,7 @@ class _FinancesScreenState extends State<FinancesScreen> {
                 child: const Text(
                   "Suma do zapłaty",
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold,color: Colors.black),
                 ),
               ),
               Padding(
@@ -107,7 +107,7 @@ class _FinancesScreenState extends State<FinancesScreen> {
                         SizedBox(width: 8),
                         Text(
                           "Zaległości finansowe",
-                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold,color: Colors.black),
                         ),
                       ],
                     ),
@@ -153,7 +153,7 @@ class _FinancesScreenState extends State<FinancesScreen> {
                         SizedBox(width: 8),
                         Text(
                           "Historia opłat",
-                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                          style: TextStyle(fontSize: 16,color: Colors.black,fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),
@@ -169,7 +169,7 @@ class _FinancesScreenState extends State<FinancesScreen> {
                 child: const Text(
                   "Brak danych",
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 18, color: Colors.white, fontWeight: FontWeight.w500),
+                  style: TextStyle(fontSize: 18, color: Colors.black, fontWeight: FontWeight.w500),
                 ),
               )
                   : ListView.builder(

@@ -192,7 +192,7 @@ class _ProfState extends State<Prof> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(label, style: const TextStyle(color: Colors.black54, fontWeight: FontWeight.w500)),
+          Text(label, style: const TextStyle( fontWeight: FontWeight.w500)),
           Flexible(
             child: Text(
               value,

@@ -31,7 +31,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
     });
   }
 
-
   Future<void> _saveSetting(String key, bool value) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool(key, value);
@@ -53,16 +52,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
           : ListView(
         padding: const EdgeInsets.symmetric(vertical: 8.0),
         children: [
+
           SwitchListTile(
             secondary: const Icon(Icons.brightness_6, color: Colors.blue),
             title: const Text("Ciemny motyw", style: TextStyle(fontWeight: FontWeight.bold)),
             subtitle: const Text("Włącz ciemny tryb interfejsu"),
             value: _isDarkMode,
-            onChanged: (bool value) {
+            onChanged: (bool value) async {
               setState(() {
                 _isDarkMode = value;
               });
-              _saveSetting('isDarkMode', value);
+              await _saveSetting('isDarkMode', value);
+              themeNotifier.value = value ? ThemeMode.dark : ThemeMode.light;
             },
           ),
           const Divider(height: 1),
@@ -84,21 +85,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
 
           SwitchListTile(
-            secondary: const Icon(Icons.brightness_6, color: Colors.blue),
-            title: const Text("Ciemny motyw", style: TextStyle(fontWeight: FontWeight.bold)),
-            subtitle: const Text("Włącz ciemny tryb interfejsu"),
-            value: _isDarkMode,
-            onChanged: (bool value) async {
+            secondary: const Icon(Icons.notifications, color: Colors.orange),
+            title: const Text("Powiadomienia Push", style: TextStyle(fontWeight: FontWeight.bold)),
+            subtitle: const Text("Otrzymuj powiadomienia o zmianach i planie"),
+            value: _isPushEnabled,
+            onChanged: (bool value) {
               setState(() {
-                _isDarkMode = value;
+                _isPushEnabled = value;
               });
-
-
-              final prefs = await SharedPreferences.getInstance();
-              await prefs.setBool('isDarkMode', value);
-
-
-              themeNotifier.value = value ? ThemeMode.dark : ThemeMode.light;
+              _saveSetting('isPushEnabled', value);
             },
           ),
           const Divider(height: 1),
@@ -111,7 +106,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
           if (index == 0) Navigator.pushReplacementNamed(context, '/Home');
           if (index == 1) Navigator.pushReplacementNamed(context, '/Plan');
           if (index == 2) Navigator.pushReplacementNamed(context, '/Map');
-
         },
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: 'Home'),

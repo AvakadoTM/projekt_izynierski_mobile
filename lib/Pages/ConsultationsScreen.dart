@@ -158,7 +158,7 @@ class _ConsultationsScreenState extends State<ConsultationsScreen> {
           children: [
             Text(
               teacherFullName.isNotEmpty ? teacherFullName : "Wykładowca",
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold,color: Colors.black),
             ),
             const SizedBox(height: 6),
             Row(
@@ -179,14 +179,14 @@ class _ConsultationsScreenState extends State<ConsultationsScreen> {
                   children: [
                     const Icon(Icons.calendar_today, size: 16, color: Colors.blue),
                     const SizedBox(width: 6),
-                    Text(date),
+                    Text(date,style: TextStyle(color: Colors.black),),
                   ],
                 ),
                 Row(
                   children: [
                     const Icon(Icons.access_time, size: 16, color: Colors.green),
                     const SizedBox(width: 6),
-                    Text(timeRange),
+                    Text(timeRange,style: TextStyle(color: Colors.black),),
                   ],
                 ),
               ],

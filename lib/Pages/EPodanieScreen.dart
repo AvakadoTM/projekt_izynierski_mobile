@@ -40,7 +40,7 @@ class _EPodanieScreenState extends State<EPodanieScreen> {
 
     if (_contentController.text.trim().isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Wprowadź treść podania!')),
+        const SnackBar(content: Text('Wprowadź treść podania!',)),
       );
       return;
     }
@@ -146,7 +146,7 @@ class _EPodanieScreenState extends State<EPodanieScreen> {
                 children: [
                   const Text(
                     "Dodaj załączniki",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold,color: Colors.black),
                   ),
                   const SizedBox(height: 12),
                   SizedBox(
