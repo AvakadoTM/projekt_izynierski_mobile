@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:projekt_izynierski/Services/theme_notifier.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -83,15 +84,21 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
 
           SwitchListTile(
-            secondary: const Icon(Icons.notifications, color: Colors.orange),
-            title: const Text("Powiadomienia Push", style: TextStyle(fontWeight: FontWeight.bold)),
-            subtitle: const Text("Otrzymuj powiadomienia o zmianach i planie"),
-            value: _isPushEnabled,
-            onChanged: (bool value) {
+            secondary: const Icon(Icons.brightness_6, color: Colors.blue),
+            title: const Text("Ciemny motyw", style: TextStyle(fontWeight: FontWeight.bold)),
+            subtitle: const Text("Włącz ciemny tryb interfejsu"),
+            value: _isDarkMode,
+            onChanged: (bool value) async {
               setState(() {
-                _isPushEnabled = value;
+                _isDarkMode = value;
               });
-              _saveSetting('isPushEnabled', value);
+
+
+              final prefs = await SharedPreferences.getInstance();
+              await prefs.setBool('isDarkMode', value);
+
+
+              themeNotifier.value = value ? ThemeMode.dark : ThemeMode.light;
             },
           ),
           const Divider(height: 1),
