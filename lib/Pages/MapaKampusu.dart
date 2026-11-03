@@ -627,7 +627,7 @@ class _MapaKampusuState extends State<MapaKampusu> {
         onTap: (index) {
           if (index == 0) Navigator.pushReplacementNamed(context, '/Home');
           if (index == 1) Navigator.pushReplacementNamed(context, '/Plan');
-          //if (index == 3) Navigator.pushReplacementNamed(context, '/Sett');
+          if (index == 3) Navigator.pushReplacementNamed(context, '/Ustawienia');
         },
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: 'Home'),

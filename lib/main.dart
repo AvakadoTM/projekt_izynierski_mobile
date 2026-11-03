@@ -24,7 +24,7 @@ void main()=>runApp(MaterialApp(
     //'/Przedmioty':((context)=>Przedmioty()),
     '/Plan':((context)=>PlanZajecScreen()),
     '/Map':((context)=>MapaKampusu()),
-    //'/Ustawienia':((context)=>Sett()),
+    '/Ustawienia':((context)=>SettingsScreen()),
     '/Profil':((context)=>Prof()),
     '/':((context)=>AuthCheckScreen())
   },

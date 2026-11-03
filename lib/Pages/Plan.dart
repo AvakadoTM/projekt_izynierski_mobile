@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:projekt_izynierski/Services/api_service.dart';
-import 'DayPlanScreen.dart'; // Второй экран
+import 'DayPlanScreen.dart';
 
 class PlanZajecScreen extends StatefulWidget {
   const PlanZajecScreen({super.key});
@@ -37,7 +37,6 @@ class _PlanZajecScreenState extends State<PlanZajecScreen> {
     _loadInitialPlan();
   }
 
-  // Загрузка плана по умолчанию для текущего студента
   Future<void> _loadInitialPlan() async {
     setState(() => _isLoading = true);
     try {
@@ -47,10 +46,9 @@ class _PlanZajecScreenState extends State<PlanZajecScreen> {
         _listaGrup = data['listagrup'] ?? [];
         _listaKierunkow = data['listakierunkow'] ?? [];
 
-        // Пытаемся определить название текущей группы
+
         if (_listaGrup.isNotEmpty) {
-          // Если есть привязка, можно подставить первую или дефолтную
-          _currentGroupName = "Brak grupy"; // Или определите из ответа сервера, если приходит
+          _currentGroupName = "Brak grupy";
         }
         _isLoading = false;
       });
@@ -62,7 +60,6 @@ class _PlanZajecScreenState extends State<PlanZajecScreen> {
     }
   }
 
-  // Загрузка плана для выбранной группы
   Future<void> _loadPlanForGroup(int grupaId, String groupName) async {
     setState(() => _isLoading = true);
     try {
@@ -96,7 +93,7 @@ class _PlanZajecScreenState extends State<PlanZajecScreen> {
           ? const Center(child: CircularProgressIndicator())
           : Column(
         children: [
-          // Название группы в шапке
+
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: Text(
@@ -150,7 +147,7 @@ class _PlanZajecScreenState extends State<PlanZajecScreen> {
 
           const Divider(thickness: 2),
 
-          // Нижняя панель с селекторами (Кірунек и Группа) как на макете
+
           Expanded(
             flex: 2,
             child: Padding(
@@ -158,7 +155,6 @@ class _PlanZajecScreenState extends State<PlanZajecScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // Селектор направления (Kierunek)
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 12),
                     decoration: BoxDecoration(
@@ -179,15 +175,13 @@ class _PlanZajecScreenState extends State<PlanZajecScreen> {
                         onChanged: (val) {
                           setState(() {
                             _selectedKierunekId = val;
-                            // Здесь можно отфильтровать список групп под выбранный kierunek, если нужно
-                          });
+                                                      });
                         },
                       ),
                     ),
                   ),
                   const SizedBox(height: 12),
 
-                  // Селектор группы (Grupa)
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 12),
                     decoration: BoxDecoration(
@@ -231,7 +225,7 @@ class _PlanZajecScreenState extends State<PlanZajecScreen> {
         onTap: (index) {
           if (index == 0) Navigator.pushReplacementNamed(context, '/Home');
           if (index == 2) Navigator.pushReplacementNamed(context, '/Map');
-          //if (index == 3) Navigator.pushReplacementNamed(context, '/Sett');
+          if (index == 3) Navigator.pushReplacementNamed(context, '/Ustawienia');
         },
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: 'Home'),

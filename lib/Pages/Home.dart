@@ -110,7 +110,7 @@ class _HomeState extends State<Home>{
         onTap: (index) {
           if (index == 1) Navigator.pushNamed(context, '/Plan');
           if (index == 2) Navigator.pushNamed(context, '/Map');
-          //if (index == 3) Navigator.pushNamed(context, '/Sett');
+          if (index == 3) Navigator.pushNamed(context, '/Ustawienia');
         },
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: 'Home'),
