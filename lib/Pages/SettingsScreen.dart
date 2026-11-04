@@ -103,9 +103,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
         currentIndex: 3,
         type: BottomNavigationBarType.fixed,
         onTap: (index) {
-          if (index == 0) Navigator.pushReplacementNamed(context, '/Home');
-          if (index == 1) Navigator.pushReplacementNamed(context, '/Plan');
-          if (index == 2) Navigator.pushReplacementNamed(context, '/Map');
+          if (index == 0) Navigator.pushNamed(context, '/Home');
+          if (index == 1) Navigator.pushNamed(context, '/Plan');
+          if (index == 2) Navigator.pushNamed(context, '/Map');
         },
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: 'Home'),

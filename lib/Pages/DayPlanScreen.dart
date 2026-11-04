@@ -15,14 +15,12 @@ class DayPlanScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    // Фильтруем занятия конкретно для выбранного дня недели
     final dayClasses = plan.where((item) {
 
       final props = item['extendedProps'] ?? {};
       return props['dzientygodnia']?.toString().toLowerCase() == dayName.toLowerCase();
     }).toList();
 
-    // Список стандартных часов сетки (с 8:00 до 20:00)
     final List<String> hours = [
       '8:00', '9:00', '10:00', '11:00', '12:00', '13:00',
       '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00'
@@ -39,7 +37,6 @@ class DayPlanScreen extends StatelessWidget {
       ),
       body: Column(
         children: [
-          // Шапка с группой
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: Text(
@@ -49,7 +46,6 @@ class DayPlanScreen extends StatelessWidget {
           ),
           const Divider(height: 1),
 
-          // Почасовая сетка расписания
           Expanded(
             child: ListView.builder(
               itemCount: hours.length - 1,
@@ -57,7 +53,7 @@ class DayPlanScreen extends StatelessWidget {
                 String startHourStr = hours[index];
                 String endHourStr = hours[index + 1];
 
-                // Ищем занятие, которое попадает в этот временной слот
+
                 var matchedClass = dayClasses.firstWhere((item) {
                   String start = item['start']?.toString() ?? '';
                   if (start.contains('T')) {
@@ -77,7 +73,6 @@ class DayPlanScreen extends StatelessWidget {
                   ),
                   child: Row(
                     children: [
-                      // Колонка времени слева
                       Container(
                         width: 75,
                         padding: const EdgeInsets.symmetric(horizontal: 4),
@@ -94,14 +89,13 @@ class DayPlanScreen extends StatelessWidget {
                         ),
                       ),
 
-                      // Блок занятия справа (если есть)
                       Expanded(
                         child: hasClass
                             ? Container(
                           margin: const EdgeInsets.all(4),
                           padding: const EdgeInsets.all(6),
                           decoration: BoxDecoration(
-                            color: Colors.pink.shade600, // Цвет карточки занятия (как на вашем скриншоте)
+                            color: Colors.pink.shade600,
                             borderRadius: BorderRadius.circular(4),
                           ),
                           child: Column(
@@ -129,7 +123,7 @@ class DayPlanScreen extends StatelessWidget {
                           ),
                         )
                             : Container(
-                          color: Colors.green, // Пустой слот (зеленый фон сетки из вашего макета)
+                          color: Colors.green,
                         ),
                       ),
                     ],

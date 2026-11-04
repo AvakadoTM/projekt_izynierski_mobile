@@ -1,11 +1,13 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:projekt_izynierski/DataModels/budynek_mapy.dart';
 
-class ApiService{
+class ApiService {
   static const String baseUrl = 'http://10.0.2.2:8000/api';
   final _storage = FlutterSecureStorage();
+
   Future<Map<String, String>> _getHeaders() async {
     final token = await getToken();
     if (token == null) throw Exception('Token not found');
@@ -16,11 +18,11 @@ class ApiService{
     };
   }
 
-  Future<void> saveToken(String token) async{
+  Future<void> saveToken(String token) async {
     await _storage.write(key: 'auth_token', value: token);
   }
 
-  Future<String?> getToken() async{
+  Future<String?> getToken() async {
     return await _storage.read(key: 'auth_token');
   }
 
@@ -29,7 +31,7 @@ class ApiService{
     await _storage.delete(key: 'auth_token');
   }
 
-  Future<Map<String, dynamic>> Login(String email, String password) async{
+  Future<Map<String, dynamic>> Login(String email, String password) async {
     final response = await http.post(
       Uri.parse('$baseUrl/login'),
       headers: {
@@ -37,16 +39,16 @@ class ApiService{
         'Accept': 'application/json',
       },
       body: jsonEncode({
-        'email':email,
-        'password':password,
+        'email': email,
+        'password': password,
       }),
     );
-    if (response.statusCode==200){
-      final data=jsonDecode(response.body);
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
       await saveToken(data['token']);
       return data;
     }
-    else{
+    else {
       final error = jsonDecode(response.body);
       //print(error['message']);
       throw Exception(error['message'] ?? 'Auth error');
@@ -101,7 +103,8 @@ class ApiService{
 
   Future<Map<String, dynamic>> fetchPlanZajec() async {
     final headers = await _getHeaders();
-    final response = await http.get(Uri.parse('$baseUrl/planzajec'), headers: headers);
+    final response = await http.get(
+        Uri.parse('$baseUrl/planzajec'), headers: headers);
 
     if (response.statusCode == 200) {
       return jsonDecode(response.body);
@@ -116,7 +119,8 @@ class ApiService{
   Future<Map<String, dynamic>> fetchPlanZajecForGroup(int grupaId) async {
     final headers = await _getHeaders();
 
-    final response = await http.get(Uri.parse('$baseUrl/planzajec/$grupaId'), headers: headers);
+    final response = await http.get(
+        Uri.parse('$baseUrl/planzajec/$grupaId'), headers: headers);
 
     if (response.statusCode == 200) {
       return jsonDecode(response.body);
@@ -132,7 +136,8 @@ class ApiService{
     final headers = await _getHeaders();
 
 
-    final response = await http.get(Uri.parse('$baseUrl/student/ocenykoncowe'), headers: headers);
+    final response = await http.get(
+        Uri.parse('$baseUrl/student/ocenykoncowe'), headers: headers);
 
     if (response.statusCode == 200) {
       return jsonDecode(response.body);
@@ -142,37 +147,37 @@ class ApiService{
     } else {
       throw Exception('Loading error: ${response.statusCode}');
     }
-
   }
 
 
   Future<Map<String, dynamic>> fetchFinances() async {
-  final token = await getToken();
-  if (token == null) throw Exception('Token not found');
+    final token = await getToken();
+    if (token == null) throw Exception('Token not found');
 
-  final response = await http.get(
-    Uri.parse('$baseUrl/student/mojefinanse'),
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
-    },
-  );
+    final response = await http.get(
+      Uri.parse('$baseUrl/student/mojefinanse'),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
 
-  if (response.statusCode == 200) {
-    return jsonDecode(response.body);
-  } else {
-    throw Exception('Błąd ładowania danych finansowych');
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body);
+    } else {
+      throw Exception('Błąd ładowania danych finansowych');
+    }
   }
-  }
 
-  Future<bool> sendPodanieM({required String type, required String content}) async {
-
+  Future<bool> sendPodanieM(
+      {required String type, required String content}) async {
     await Future.delayed(const Duration(seconds: 1));
     return true;
   }
 
-  Future<bool> sendPodanie({required String type, required String content}) async {
+  Future<bool> sendPodanie(
+      {required String type, required String content}) async {
     final token = await getToken();
     if (token == null) throw Exception('Token not found');
 
@@ -197,61 +202,6 @@ class ApiService{
   }
 
 
-  Future<List<dynamic>> fetchKonsultacjeM({String? searchQuery}) async {
-    // Временная заглушка с демо-данными
-    await Future.delayed(const Duration(milliseconds: 500));
-
-    final List<dynamic> allConsultations = [
-      {
-        'id': 1,
-        'teacherName': 'dr. inż. Adam Nowak',
-        'subject': 'Matematyka dla informatyków I',
-        'day': 'Wtorek',
-        'time': '14:00 - 15:30',
-        'room': 'Gabinet 312, bud. A',
-        'isMyTeacher': true, // Ведет у текущего студента
-      },
-      {
-        'id': 2,
-        'teacherName': 'dr. hab. inż. Jan Kozieł',
-        'subject': 'Informatyka II',
-        'day': 'Czwartek',
-        'time': '10:15 - 11:45',
-        'room': 'Gabinet 405, bud. B',
-        'isMyTeacher': true,
-      },
-      {
-        'id': 3,
-        'teacherName': 'prof. dr hab. Maria Wójcik',
-        'subject': 'Fizyka ogólna',
-        'day': 'Poniedziałek',
-        'time': '12:00 - 13:30',
-        'room': 'Gabinet 110, bud. C',
-        'isMyTeacher': false,
-      },
-      {
-        'id': 4,
-        'teacherName': 'mgr inż. Piotr Zieliński',
-        'subject': 'Bazy Danych SQL',
-        'day': 'Środa',
-        'time': '16:00 - 17:30',
-        'room': 'Lab 204, bud. A',
-        'isMyTeacher': false,
-      },
-    ];
-
-
-    if (searchQuery != null && searchQuery.isNotEmpty) {
-      final query = searchQuery.toLowerCase();
-      return allConsultations.where((item) {
-        final teacher = item['teacherName'].toString().toLowerCase();
-        final subject = item['subject'].toString().toLowerCase();
-        return teacher.contains(query) || subject.contains(query);
-      }).toList();
-    }
-
-    return allConsultations;
-  }
   Future<List<dynamic>> fetchKonsultacje({String? searchQuery}) async {
     final headers = await _getHeaders();
 
@@ -332,7 +282,6 @@ class ApiService{
       if (previous == null) {
         budynki[building.id] = building;
       } else {
-
         budynki[building.id] = BudynekMapy(
           id: previous.id,
           nazwa: previous.nazwa,
@@ -349,5 +298,50 @@ class ApiService{
     }
 
     return budynki.values.toList();
+  }
+
+  Future<dynamic> fetchMojeKursy() async {
+    final headers = await _getHeaders();
+
+    final response = await http.get(
+        Uri.parse('$baseUrl/student/mojekursy'), headers: headers);
+
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body);
+    } else {
+      throw Exception('Błąd ładowania kursów: ${response.statusCode}');
+    }
+  }
+
+  Future<dynamic> fetchKursDetails(String nazwaKursu, int idKurs) async {
+    final headers = await _getHeaders();
+    headers['Accept'] = 'application/json';
+
+    final encodedName = Uri.encodeComponent(nazwaKursu);
+    final response = await http.get(
+      Uri.parse('$baseUrl/student/kurs/$encodedName/$idKurs'),
+      headers: headers,
+    );
+
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body);
+    } else {
+      throw Exception(
+          'Błąd ładowania szczegółów kursu: ${response.statusCode}');
+    }
+  }
+
+  Future<void> zapiszNaKurs(int idKurs) async {
+    final headers = await _getHeaders();
+    headers['Accept'] = 'application/json';
+
+    final response = await http.post(
+      Uri.parse('$baseUrl/student/mojekursy/$idKurs'),
+      headers: headers,
+    );
+
+    if (response.statusCode != 200 && response.statusCode != 302) {
+      throw Exception('Nie udało się zapisać na kurs');
+    }
   }
 }

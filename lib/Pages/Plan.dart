@@ -223,9 +223,9 @@ class _PlanZajecScreenState extends State<PlanZajecScreen> {
         currentIndex: 1,
         type: BottomNavigationBarType.fixed,
         onTap: (index) {
-          if (index == 0) Navigator.pushReplacementNamed(context, '/Home');
-          if (index == 2) Navigator.pushReplacementNamed(context, '/Map');
-          if (index == 3) Navigator.pushReplacementNamed(context, '/Ustawienia');
+          if (index == 0) Navigator.pushNamed(context, '/Home');
+          if (index == 2) Navigator.pushNamed(context, '/Map');
+          if (index == 3) Navigator.pushNamed(context, '/Ustawienia');
         },
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: 'Home'),

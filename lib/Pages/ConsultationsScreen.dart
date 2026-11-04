@@ -45,7 +45,6 @@ class _ConsultationsScreenState extends State<ConsultationsScreen> {
       ),
       body: Column(
         children: [
-          // Поле поиска
           Padding(
             padding: const EdgeInsets.all(12.0),
             child: TextField(
@@ -81,7 +80,6 @@ class _ConsultationsScreenState extends State<ConsultationsScreen> {
             ),
           ),
 
-          // Список консультаций
           Expanded(
             child: FutureBuilder<List<dynamic>>(
               future: _consultationsFuture,
@@ -128,13 +126,12 @@ class _ConsultationsScreenState extends State<ConsultationsScreen> {
   }
 
   Widget _buildConsultationCard(Map<String, dynamic> item) {
-    // Формируем имя преподавателя из полей TytulNaukowy, name, surname
     final String tytul = item['TytulNaukowy'] ?? '';
     final String name = item['name'] ?? '';
     final String surname = item['surname'] ?? '';
     final String teacherFullName = "$tytul $name $surname".trim();
 
-    // Дата и время из модели rezerwacja
+
     final String date = item['data'] ?? '';
     final String timeStart = item['GodzinaRozpoczecia'] ?? '';
     final String timeEnd = item['GodzinaZakonczenia'] ?? '';
@@ -142,7 +139,7 @@ class _ConsultationsScreenState extends State<ConsultationsScreen> {
         ? "${timeStart.substring(0, 5)} - ${timeEnd.substring(0, 5)}"
         : timeStart;
 
-    // Аудитория и здание
+
     final String sala = item['numerSali'] ?? '';
     final String budynek = item['nazwa'] ?? '';
 

@@ -99,7 +99,6 @@ class _GradesScreenState extends State<GradesScreen> {
                   ? Colors.black54
                   : (Theme.of(context).brightness == Brightness.dark ? Colors.white70 : Colors.black54);
 
-              // Получаем данные оценки
               final part = (sub['parts'] as List).isNotEmpty ? sub['parts'][0] : {};
               final finalGrade = part['finalGrade'] ?? '-';
               final partName = part['partName'] ?? '';
