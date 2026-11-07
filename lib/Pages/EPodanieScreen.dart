@@ -125,6 +125,9 @@ class _EPodanieScreenState extends State<EPodanieScreen> {
               maxLines: 8,
               decoration: InputDecoration(
                 hintText: "Wprowadź treść podania",
+                hintStyle: const TextStyle(
+                  color: Colors.white70,
+                ),
                 filled: true,
                 fillColor: Colors.grey.shade400,
                 border: OutlineInputBorder(

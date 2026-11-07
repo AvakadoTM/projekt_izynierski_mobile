@@ -51,6 +51,9 @@ class _ConsultationsScreenState extends State<ConsultationsScreen> {
               controller: _searchController,
               decoration: InputDecoration(
                 hintText: "Szukaj wykładowcy...",
+                hintStyle: const TextStyle(
+                  color: Colors.black45,
+                ),
                 prefixIcon: const Icon(Icons.search),
                 suffixIcon: _searchQuery.isNotEmpty
                     ? IconButton(

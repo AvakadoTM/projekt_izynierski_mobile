@@ -83,8 +83,8 @@ class DayPlanScreen extends StatelessWidget {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(startHourStr, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.bold)),
-                            Text(endHourStr, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.bold)),
+                            Text(startHourStr, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: Colors.black54)),
+                            Text(endHourStr, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: Colors.black54)),
                           ],
                         ),
                       ),
@@ -115,7 +115,7 @@ class DayPlanScreen extends StatelessWidget {
                               const SizedBox(height: 2),
                               Text(
                                 "Sala: ${props['numersali'] ?? '-'} | ${props['tytulNaukowy'] ?? ''} ${props['imie'] ?? ''} ${props['nazwisko'] ?? ''}",
-                                style: const TextStyle(color: Colors.white70, fontSize: 11),
+                                style: const TextStyle(color: Colors.white, fontSize: 11),
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                               ),
