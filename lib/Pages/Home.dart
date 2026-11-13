@@ -75,8 +75,8 @@ class _HomeState extends State<Home> {
           _buildMenuButton(
             context,
             iconData: Icons.book_outlined,
-            title: "Moje przedmioty",
-            onPressed: () {},
+            title: "Moje kursy",
+            onPressed: ()  => Navigator.pushNamed(context, '/Przedmioty'),
           ),
         ],
       ),

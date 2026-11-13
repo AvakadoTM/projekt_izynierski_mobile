@@ -40,6 +40,7 @@ class _GradesScreenState extends State<GradesScreen> {
           }
 
           final data = snapshot.data;
+          print("${data}");
           final List rawOceny = data?['oceny'] ?? [];
           final int currentStudentSemester = data?['studentsem'] ?? 1;
 
@@ -76,7 +77,7 @@ class _GradesScreenState extends State<GradesScreen> {
             if (!aIsCurrent && bIsCurrent) return 1;
             return 0;
           });
-
+          print("${subjects}");
           return ListView.builder(
             padding: const EdgeInsets.all(8.0),
             itemCount: subjects.length,

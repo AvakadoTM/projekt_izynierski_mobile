@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:projekt_izynierski/DataModels/budynek_mapy.dart';
+import 'package:file_selector/file_selector.dart';
 
 class ApiService {
   static const String baseUrl = 'http://10.0.2.2:8000/api';
@@ -319,7 +320,7 @@ class ApiService {
 
     final encodedName = Uri.encodeComponent(nazwaKursu);
     final response = await http.get(
-      Uri.parse('$baseUrl/student/kurs/$encodedName/$idKurs'),
+      Uri.parse('$baseUrl/student/mojekursy/$encodedName/$idKurs'),
       headers: headers,
     );
 
@@ -342,6 +343,58 @@ class ApiService {
 
     if (response.statusCode != 200 && response.statusCode != 302) {
       throw Exception('Nie udało się zapisać na kurs');
+    }
+  }
+  Future<dynamic> fetchZadanieDetails(int idZadanie) async {
+    final headers = await _getHeaders();
+    headers['Accept'] = 'application/json';
+
+    final response = await http.get(
+      Uri.parse('$baseUrl/student/kurs/{idZadanie}'),
+      headers: headers,
+    );
+
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body);
+    } else {
+      throw Exception('Błąd ładowania szczegółów zadania: ${response.statusCode}');
+    }
+  }
+
+
+  Future<void> wyslijZadanie(int idZadanie, List<String> filePaths) async {
+    final headers = await _getHeaders();
+    headers['Accept'] = 'application/json';
+
+    var request = http.MultipartRequest(
+      'POST',
+      Uri.parse('$baseUrl/student/zadanie/$idZadanie/wyslij'),
+    );
+    request.headers.addAll(headers);
+
+    for (var path in filePaths) {
+      request.files.add(
+        await http.MultipartFile.fromPath('pliks[]', path),
+      );
+    }
+
+    var streamedResponse = await request.send();
+    if (streamedResponse.statusCode != 200 && streamedResponse.statusCode != 302) {
+      throw Exception('Nie udało się wysłać zadania');
+    }
+  }
+
+  Future<void> usunPlikZadania(int idZadanie, int idPlik) async {
+    final headers = await _getHeaders();
+    headers['Accept'] = 'application/json';
+
+    final response = await http.delete(
+      Uri.parse('$baseUrl/student/kurs/redagujzadanie/{idZadanie}/{idPlik}'),
+      headers: headers,
+    );
+
+    if (response.statusCode != 200 && response.statusCode != 302) {
+      throw Exception('Nie udało się usunąć pliku');
     }
   }
 }

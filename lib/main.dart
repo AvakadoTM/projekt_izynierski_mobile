@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projekt_izynierski/Pages/CoursesScreen.dart';
 import 'package:projekt_izynierski/Services/theme_notifier.dart';
 import 'package:projekt_izynierski/Pages/AuthCheckScreen.dart';
 import 'package:projekt_izynierski/Pages/EPodanieScreen.dart';
@@ -66,7 +67,7 @@ class MyApp extends StatelessWidget {
             '/Finansy': ((context) => FinancesScreen()),
             //'/Komunikaty':((context)=> Coms()),
             '/EPodania': ((context) => EPodanieScreen()),
-            //'/Przedmioty':((context)=>Przedmioty()),
+            '/Przedmioty':((context)=>CoursesScreen()),
             '/Plan': ((context) => PlanZajecScreen()),
             '/Map': ((context) => MapaKampusu()),
             '/Ustawienia': ((context) => SettingsScreen()),
